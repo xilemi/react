@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    // 列表渲染
+    const app = ReactDOM.createRoot(document.querySelector("#app"));
+    class App extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          movies: [1, 2, 3, 5, 6, 8],
+        };
+      }
+      render() {
+        return (
+          <div>
+            <ul>
+              {this.state.movies.map((movie) => {
+                return <li key={movie}>{movie}</li>;
+              })}
+            </ul>
+          </div>
+        );
+      }
+    }
+    app.render(<App />);
+  </script>
+</html>

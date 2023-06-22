@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .active {
+      color: yellow;
+    }
+  </style>
+  <body>
+    <div id="root"></div>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+    <script type="text/babel">
+      const app = ReactDOM.createRoot(document.querySelector("#root"));
+      // 首选渲染列表
+      //设置class 使用className 进行绑定
+      //点击激活
+
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            list: ["xile", "hhhh", "zhangsan", "tansuqin"],
+            currentIndex: 0,
+          };
+        }
+        activeLi(index) {
+          this.setState({
+            currentIndex: index,
+          });
+        }
+        renderList() {
+          let { currentIndex } = this.state;
+          let listEles = this.state.list.map((item, index) => {
+            return (
+              <li
+                key={index}
+                onClick={() => this.activeLi(index)}
+                className={currentIndex === index ? "active" : ""}
+              >
+                {item}
+              </li>
+            );
+          });
+          return listEles;
+        }
+        render() {
+          return <ul>{this.renderList()}</ul>;
+        }
+      }
+      app.render(<App />);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+    <script src="./data.js"></script>
+    <script type="text/babel">
+      // 渲染购物车列表  购物车数量+ - 删除
+      const app = ReactDOM.createRoot(document.querySelector("#root"));
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            books: book,
+          };
+        }
+        incNum(index) {
+          const { books } = this.state;
+          const newBooks = JSON.parse(JSON.stringify(books));
+          newBooks[index].num++;
+          this.setState({
+            books: newBooks,
+          });
+        }
+        decNum(index) {
+          const { books } = this.state;
+          const newBooks = JSON.parse(JSON.stringify(books));
+          newBooks[index].num--;
+          this.setState({
+            books: newBooks,
+          });
+        }
+        del(index) {
+          const { books } = this.state;
+          const newBooks = JSON.parse(JSON.stringify(books));
+          newBooks.splice(index, 1);
+          this.setState({
+            books: newBooks,
+          });
+        }
+        renderCart() {
+          return this.state.books.map((item, index) => {
+            return (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+                <td>
+                  <button onClick={() => this.decNum(index)}>-</button>
+                  {item.num}
+                  <button onClick={() => this.incNum(index)}>+</button>
+                </td>
+                <td>{item.price * item.num}</td>
+                <td onClick={() => this.del(index)}>删除</td>
+              </tr>
+            );
+          });
+        }
+        render() {
+          const { books } = this.state;
+          return (
+            <table>
+              <thead>
+                <tr>
+                  <th>编号</th>
+                  <th>书名</th>
+                  <th>价格</th>
+                  <th>数量</th>
+                  <th>小计</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>{this.renderCart()}</tbody>
+            </table>
+          );
+        }
+      }
+      app.render(<App />);
+    </script>
+  </body>
+</html>

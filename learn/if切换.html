@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+    <script type="text/babel">
+      const app = ReactDOM.createRoot(document.querySelector("#root"));
+      // 根据值的不同显示不同的内容
+      //  1. 三元运算符
+      // 2. 逻辑与或运算符
+      // 3. if判断
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            isLogin: true,
+          };
+        }
+        changeShow() {
+          this.setState({
+            isLogin: !this.state.isLogin,
+          });
+        }
+        // showLogin() {
+        //   if (this.state.isLogin) {
+        //     return <h1>欢迎回来</h1>;
+        //   } else {
+        //     return <h1>去登录</h1>;
+        //   }
+        // }
+        render() {
+          let { isLogin } = this.state;
+          return (
+            <div>
+              {/* {this.showLogin()} */}
+              {/*  {isLogin ? <h1>欢迎回来</h1> : <h1>去登录</h1>} */}
+              {isLogin && <h1>欢迎回来</h1>}
+              {isLogin || <h1>去登录</h1>}
+              <button onClick={() => this.changeShow()}>切换状态</button>
+            </div>
+          );
+        }
+      }
+      app.render(<App />);
+
+      // 封装一个数组去重函数
+    </script>
+  </body>
+</html>
