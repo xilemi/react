@@ -1,0 +1,58 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+    <script type="text/babel">
+      const app = ReactDOM.createRoot(document.querySelector("#root"));
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            count: 1,
+          };
+          this.add = this.add.bind(this);
+          //   this.red = this.red.bind(this);
+        }
+        add(payload) {
+          // 返回一个函数?
+          return () => {
+            this.setState({
+              count: this.state.count + payload,
+            });
+          };
+        }
+        // 使用箭头函数解决this的问题
+        /*  red = () => {
+          this.setState({
+            count: this.state.count - 1,
+          }); */
+        red(payload) {
+          this.setState({
+            count: this.state.count - payload,
+          });
+        }
+        render() {
+          const { count } = this.state;
+          return (
+            <div>
+              <p>{count}</p>
+              <button onClick={this.add(2)}>+</button>
+              // <button onClick={this.red}>-</button>
+              // 这里的箭头函数 然 this.red()this 指向类
+              <button onClick={() => this.red()}>-</button>
+            </div>
+          );
+        }
+      }
+      app.render(<App />);
+    </script>
+  </body>
+</html>

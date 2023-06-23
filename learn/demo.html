@@ -1,0 +1,38 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    {
+      /*单个大括号语法   不管是变量 还是属性都是使用  */
+    }
+    let count = "1";
+    //是不是可以理解为一个组件 每个组件都是一个函数
+    function DomRender() {
+      app.render(
+        <div>
+          <p>{count}</p>
+          <button onClick={changeCount}>点击</button>
+        </div>
+      );
+    }
+    function changeCount() {
+      console.log(1111);
+      count++;
+      DomRender();
+    }
+    // ReactDOM.createRoot("创建根元素")
+    // 在元素内进行 render 进行渲染
+    const app = ReactDOM.createRoot(document.querySelector("#app"));
+    DomRender();
+  </script>
+</html>

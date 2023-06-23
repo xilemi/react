@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/unpkg.com_react@18.2.0_umd_react.development.js"></script>
+    <script src="./lib/unpkg.com_react-dom@18.2.0_umd_react-dom.development.js"></script>
+    <script src="./lib/unpkg.com_babel-standalone@6.26.0_babel.min.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    // 声明数据不要放在render函数中
+    class App extends React.Component {
+      constructor() {
+        super();
+        this.state = {
+          count: 1,
+        };
+        this.changeCount = this.changeCount.bind(this);
+      }
+      changeCount() {
+        // class 中默认严格模式  this 指向undefined
+        console.log(this);
+        console.log(this.state);
+        this.state.count++;
+        this.setState({
+          count: this.state.count,
+        });
+      }
+      render() {
+        return (
+          <div>
+            <h1>{this.state.count}</h1>
+            <button onClick={this.changeCount}>点击</button>
+          </div>
+        );
+      }
+    }
+    const app = ReactDOM.createRoot(document.querySelector("#app"));
+    app.render(<App />);
+  </script>
+</html>
