@@ -1,10 +1,12 @@
 
+import { Fragment  } from "react"
+import LayoutRouter from "./pages/router"
 function App() {
 
   return (
-    <>
-      <h2>music</h2>
-    </>
+    <Fragment>
+      <LayoutRouter></LayoutRouter>
+    </Fragment>
   )
 }
 
