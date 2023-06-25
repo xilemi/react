@@ -6,9 +6,22 @@ import "./style/common.scss"
 import { Provider } from "react-redux"
 import store, { persistor } from './rtk/store'
 import { PersistGate } from 'redux-persist/integration/react'
-import { HashRouter as Hash, useLocation } from "react-router-dom"
-import LayoutRouter from './pages/router'
+import { HashRouter as Hash } from "react-router-dom"
 import Myload from './components/Myload'
+
+
+
+
+// import  "../mock/api"
+
+
+import { mockXHR } from '../mock';
+if (process.env.NODE_ENV !== 'production') {
+  mockXHR();
+}
+
+
+
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
   <Provider store={store}>

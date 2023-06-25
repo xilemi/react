@@ -30,12 +30,18 @@ const userSlice = createSlice({
 export const { updataToken, updataInfo } = userSlice.actions
 export const loginAndUpdateTokenAsync = createAsyncThunk("userInfo/loginAndUpdateToken", async (params: loginType) => {
     let res = await loginApi(params)
+    console.log(res);
+    
     if (res.code == 200) {
-        return res.token
+        // return res.token
+        return res.userName
     }
 })
-export const getUserInfoAsync = createAsyncThunk("userInfo/getUserInfo", async () => {
-    let res = await getUserInfoApi()
-    return res.user
+export const getUserInfoAsync = createAsyncThunk("userInfo/getUserInfo", async (params:any) => {
+    let res = await getUserInfoApi(params)
+    if(res.code==200){
+        return res.user
+    }
+   
 })
 export default userSlice.reducer

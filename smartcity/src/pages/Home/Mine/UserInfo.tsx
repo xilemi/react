@@ -3,7 +3,7 @@ import MyHeader from '../../../components/MyHeader'
 import { Form, Input, Button, Radio, Space, List, Avatar, CenterPopup } from 'antd-mobile'
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons'
 import { NavLink } from 'react-router-dom'
-import { useCommonFunc } from '../../../hooks'
+import { useCommonFunc, useLocalData } from '../../../hooks'
 import { getUserInfoApi, resetPwdApi, resetUserInfoApi } from '../../../api/prodApi/userInfo'
 import { userInfoType } from '../../../types'
 import { useSelector } from 'react-redux'
@@ -21,11 +21,12 @@ const UserInfo = () => {
     const [visible, setVisible] = useState(false)
     const [visibleQr, setVisibleQr] = useState(false)
     const { refresh } = useCommonFunc()
+    const {userName}=useLocalData()
     const setVisibleHandler = (payload) => {
         setVisible(payload)
     }
     const onSub = async (val) => {
-        let res = await resetUserInfoApi(val)
+        let res = await resetUserInfoApi({...val,userName})
         if (res.code = 200) {
             refresh()
             setVisible(false)
@@ -45,7 +46,7 @@ const UserInfo = () => {
             <MyHeader title="个人信息"></MyHeader>
             <div className='center'>
                 <List mode='card'>
-                    <List.Item extra={<MyUpload><Avatar src={info.avatar ? imgBaseUrl + info.avatar : ''} style={{ borderRadius: '50%', "--size": "48px" }} /></MyUpload>}>头像</List.Item>
+                    <List.Item extra={<MyUpload><Avatar src={info?.avatar ? imgBaseUrl + info?.avatar : ''} style={{ borderRadius: '50%', "--size": "48px" }} /></MyUpload>}>头像</List.Item>
                     <List.Item extra={info.userName}>用户名</List.Item>
                     <List.Item extra={info.userId}>用户ID</List.Item>
                     <List.Item extra={info.nickName} onClick={() => changeClick({ key: "nickName", title: "昵称", val: info.nickName, types: '0' })}>昵称</List.Item>

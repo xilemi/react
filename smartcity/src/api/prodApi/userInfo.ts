@@ -18,8 +18,8 @@ export const regApi: (params: regType) => any = (params: regType) => {
 }
 
 // 获取用户信息 不用携带参数,带token
-export const getUserInfoApi: () => any = () => {
-    return request.get("/prod-api/api/common/user/getInfo")
+export const getUserInfoApi: (params:any) => any = (params) => {
+    return request.get("/prod-api/api/common/user/getInfo",{params})
 }
 // 修改密码  put 和 post 一样使用
 export const resetPwdApi = (params) => {

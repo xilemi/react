@@ -23,12 +23,13 @@ const Login: FC = () => {
   const { pathname } = useLocation()
   const { gotopage } = useCommonFunc()
   const { token, setToken } = useLocalData()
-  const { setfromPath, settoPath, toPath, fromPath } = useLocalData()
+  const { setfromPath, settoPath, toPath, fromPath ,setuserName} = useLocalData()
   const subLogin = () => {
     if (loginInfo) {
       dispatch(loginAndUpdateTokenAsync(loginInfo.getFieldsValue())).then((res) => {
         if (!res.error) {
-          setToken(res.payload)
+          // setToken(res.payload)
+          setuserName(res.payload)
           if (((fromPath.includes("/reg") || fromPath.includes("/login")))) {
             gotopage("/index/mine")
           }

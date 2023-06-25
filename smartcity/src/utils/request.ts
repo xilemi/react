@@ -2,7 +2,7 @@ import axios from 'axios'
 import { failToast, successToast } from './message';
 export const baseURL = 'http://124.93.196.45:10001';
 export const imgBaseUrl = 'http://116.62.165.233:3333'
-axios.defaults.baseURL = 'http://124.93.196.45:10001';
+// axios.defaults.baseURL = 'http://124.93.196.45:10001';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.interceptors.request.use(function (config: any) {
@@ -32,7 +32,7 @@ axios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     // axios封装的对象
     // console.log("response", response);
-
+    
     let { code, msg, status } = response.data
     // 这里的条件修改
 

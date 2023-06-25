@@ -28,7 +28,8 @@ function Find() {
             // 做个存储,不用每次进来都请求,一天更新一次
             // setServiceList(res.rows)
             // 去重 
-
+            console.log(res.rows);
+            
             dispatch(updataServiceList(res.rows))
             serviceList.forEach(item => {
                 if (item.serviceType != null) {

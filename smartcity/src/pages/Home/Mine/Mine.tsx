@@ -13,6 +13,7 @@ const Mine: FC = () => {
     // 登录后进入首页,会存token rtk 中会有Authorization
     const { Authorization, info } = useSelector(state => state.userInfo)
     const { setToken } = useLocalData()
+    const {userName,setuserName}=useLocalData()
     const defaultUserInfo = {
         userId: "",
         userName: "",
@@ -29,7 +30,8 @@ const Mine: FC = () => {
     // const [userInfo, setUserInfo] = useState<userInfoType>(defaultUserInfo)
     const dispatch: any = useDispatch()
     const logout = () => {
-        setToken("")
+        setToken(""),
+        setuserName("")
         dispatch(updataToken(null))
         dispatch(updataInfo(null))
     }
@@ -39,20 +41,16 @@ const Mine: FC = () => {
     }
     useEffect(() => {
         if (!info) {
-            dispatch(getUserInfoAsync())
+            dispatch(getUserInfoAsync({userName:userName}))
         }
     }, [])
     const onGoInfo = () => {
-        if (Authorization && info) {
+        if ((Authorization && info)||userName) {
             gotopage("/index/userinfo")
         } else {
             failToast("请登录")
         }
     }
-    useEffect(() => {
-
-        // getUserInfo()
-    }, [])
     return (
         <>
             <MyHeader title='我的'></MyHeader>
@@ -60,7 +58,7 @@ const Mine: FC = () => {
                 <List mode='card'>
                     {/* 点击跳个人信息页面 */}
                     <List.Item
-                        prefix={<Avatar src={info?.avatar ? imgBaseUrl + info.avatar : ''} style={{ borderRadius: '50%', "--size": "48px" }} />}
+                        prefix={<Avatar src={info?.avatar ? imgBaseUrl + info?.avatar : ''} style={{ borderRadius: '50%', "--size": "48px" }} />}
                         description={info?.userId ? "ID:" + info?.userId : "ID:"}
                         arrow={true}
                         onClick={onGoInfo}

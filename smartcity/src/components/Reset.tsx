@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { Popup, Space, Button, Form, Input } from 'antd-mobile'
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons'
-import { useCommonFunc } from '../hooks'
+import { useCommonFunc, useLocalData } from '../hooks'
 import { resetPwdApi } from '../api/prodApi/userInfo'
 import { reg } from '../utils/valid'
 const Reset: FC<{ visible?: boolean, setVisibleHandler: any }> = ({ visible = false, setVisibleHandler }) => {
@@ -10,10 +10,11 @@ const Reset: FC<{ visible?: boolean, setVisibleHandler: any }> = ({ visible = fa
     const [visiblePwd, setvisiblePwd] = useState(false)
     const [visibleComPwd, setvisibleComPwd] = useState(false)
     const [visibleDbComPwd, setvisibleDbComPwd] = useState(false)
+    const {userName,setuserName}=useLocalData()
     // 提交事件
     const subReg = async () => {
         console.log();
-        let res = await resetPwdApi(info.getFieldsValue())
+        let res = await resetPwdApi({...info.getFieldsValue(),userName})
         if (res.code = 200) {
             setVisibleHandler(false)
             info.resetFields()

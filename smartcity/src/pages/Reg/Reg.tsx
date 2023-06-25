@@ -21,6 +21,7 @@ const Reg: FC = () => {
     }
     const subReg = async () => {
         let res = await regApi(regInfo.getFieldsValue())
+        
         if (res.code) {
             regInfo.resetFields()
         }

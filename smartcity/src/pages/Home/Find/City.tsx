@@ -68,7 +68,7 @@ const City = () => {
             <div className="center" style={{ backgroundColor: "#fff" }}>
                 <SearchBar placeholder='请输入城市名或者字母' showCancelButton={() => true} onFocus={() => setToggle(false)} onCancel={() => onCancel()} ref={searchRef} onChange={searchHandler} style={{ height: 50, padding: "0 10px" }} />
                 {
-                    toggle ? <div style={{ height: 'calc(100% - 70px)' }}>
+                    toggle ? <div style={{ height: 'calc(100% - 72px)' }}>
                         <div>
                             <div style={{ margin: '20px 10px' }}>热门城市</div>
                             <CapsuleTabs onChange={selectCity}>
