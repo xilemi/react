@@ -4,10 +4,13 @@ import { Image, List, Rate, Swiper } from 'antd-mobile'
 import { getHospitalBannerListApi, getHospitalListApi } from '../../../../api/hospital'
 import { useCommonFunc } from '../../../../hooks'
 import  qs from "qs"
+import { useDispatch } from 'react-redux'
+import { updataIdInfo } from '../../../../rtk/reducers/hospitalSlice'
 const Hospital = () => {
     const [bannerList, setBannerList] = useState([])
     const [hospitalList, setHospitalList] = useState([])
     const {gotopage}=useCommonFunc()
+    const dispatch=useDispatch()
     const getHospitalBannerList = async () => {
         let res = await getHospitalBannerListApi()
         console.log(res);
@@ -20,6 +23,10 @@ const Hospital = () => {
         if (res.code == 200) {
             setHospitalList(res.rows)
         }
+    }
+    const onSelect=(item)=>{
+        gotopage("/index/outpatient/hospitaldetail"+"?"+qs.stringify({id:item.id}))
+        dispatch(updataIdInfo(item.id))
     }
     useEffect(() => {
         getHospitalBannerList()
@@ -50,7 +57,7 @@ const Hospital = () => {
                         {hospitalList.map(item => (
                             <List.Item
                                 key={item.id}
-                                onClick={()=>gotopage("/index/outpatient/hospitaldetail"+"?"+qs.stringify({id:item.id}))}
+                                onClick={()=>onSelect(item)}
                                 prefix={
                                     <Image
                                         src={item.imgUrl}

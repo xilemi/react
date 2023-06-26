@@ -27,7 +27,7 @@ const HospitalDetail: FC = () => {
                 <div>{info?.hospitalName}</div>
                 <div>{info?.brief}</div>
             </div>
-            <Button color='primary' style={{height:40,margin:"0 10px"}} onClick={()=>gotopage("/index/outpatient/hospitalcard")}>预约就诊</Button>
+            <Button color='primary' style={{height:40,margin:"0 10px"}} onClick={()=>gotopage("/index/outpatient/addreservation")}>预约就诊</Button>
         </>
     )
 }

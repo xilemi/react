@@ -10,6 +10,8 @@ import user from './models/user';
 import service from './models/service';
 import hospital from './models/hospital';
 import hospitalCard from './models/hospitalCard';
+import department from './models/department';
+import reservation from './models/reservation';
 
 // 上线是否需要控制mock 的开关 
 // 合并所有模块
@@ -17,7 +19,9 @@ const mocks = [
     ...user,
     ...service,
     ...hospital,
-    ...hospitalCard
+    ...hospitalCard,
+    ...department,
+    ...reservation
 ];
 
 // 导出mock主程序

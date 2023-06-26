@@ -8,12 +8,14 @@ import {
 import storage from 'redux-persist/es/storage';
 import newsSlice from "./reducers/newsSlice";
 import findSlice from "./reducers/findSlice";
+import hospitalSlice from "./reducers/hospitalSlice";
 
 //根reducer
 const reducer = combineReducers({
     userInfo: userSlice,
     newsInfo: newsSlice,
-    findInfo: findSlice
+    findInfo: findSlice,
+    hospitalInfo:hospitalSlice
 })
 
 // 数据持久化的配置
