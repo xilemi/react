@@ -36,7 +36,7 @@
 
 
 const jwt = require('jsonwebtoken')
-const secretKey = "FX2301-daydayup"
+const secretKey = "FX2302-daydayup"
 
 // 生成token 
 exports.createToken = function(data){  // data 加密的数据  
