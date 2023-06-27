@@ -21,7 +21,7 @@ const HospitalDetail: FC = () => {
     },[])
     return (
         <>
-            <MyHeader title='医院详情'></MyHeader>
+            <MyHeader title='医院详情' onback={()=>gotopage("/index/outpatient/hospitalList")}></MyHeader>
             <div className="center">
                 <Image src={info?.imgUrl}/>
                 <div>{info?.hospitalName}</div>

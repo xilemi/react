@@ -39,7 +39,7 @@ const Index: React.FC = () => {
 
   return (
     <Layout>
-      <Header style={{ display: 'flex', alignItems: 'center',backgroundColor:"pink" }}>
+      <Header style={{ display: 'flex', alignItems: 'center', backgroundColor: "pink" }}>
         <div>管理系统</div>
       </Header>
       <Layout>
@@ -66,7 +66,7 @@ const Index: React.FC = () => {
               background: colorBgContainer,
             }}
           >
-           <Outlet></Outlet>
+            <Outlet></Outlet>
           </Content>
         </Layout>
       </Layout>

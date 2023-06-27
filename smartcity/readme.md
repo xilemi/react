@@ -20,6 +20,7 @@
 15.未登录跳转到登录页面,后返回的路劲判断,记录topath frompath在storage 
 16.城市使用city接口,使用列表的城市,省下面市,可以搜索,侧边有导航栏,记录当前选中的地址,存rtk   
 17.发现页面数据存rtk,不用每次进入都重新请求 
+18.页面 keep-alive 如何实现
 ## hooks使用
 1.useInterval
 2.useLocalStorageState 存储storage在本地
