@@ -1,6 +1,7 @@
 // 全局路由
 
 const routes = [
+    { path: "/", redirect: '/login' },
     { path: '/login', component: '@/pages/Login/Login' },
     { path: "/reg", component: "@/pages/Reg/Reg" },
     { path: "/findpass", component: "@/pages/FindPass/FindPass" },
@@ -9,6 +10,10 @@ const routes = [
             {
                 path: "home",
                 component: '@/pages/Main/Home/Home'
+            }, 
+            {
+                path: "test",
+                component: '@/pages/Main/Home/Test'
             },
             {
                 path: '*',
@@ -17,7 +22,6 @@ const routes = [
 
         ]
     },
-    { path: "/", redirect: '/login' },
     {
         path: "/404",
         component: '@/pages/Badserver/NotFound'

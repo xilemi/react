@@ -4,6 +4,7 @@ import { Button, Tabs } from 'antd'
 import React from 'react'
 import "@/styles/login.scss"
 import AccountLogin from './AccountLogin'
+import PhoneLogin from './PhoneLogin'
 
 
 const Login = () => {
@@ -15,7 +16,7 @@ const Login = () => {
   {
     key: '2',
     label: `手机号登录`,
-    children: `Content of Tab Pane 2`,
+    children: <PhoneLogin/>,
   },]
 
   return (

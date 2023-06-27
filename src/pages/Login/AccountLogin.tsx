@@ -1,44 +1,55 @@
 import { loginApi } from '@/api/pro';
+import { useCommonFc, useLocalData } from '@/hooks';
+import { useLocalStorageState } from 'ahooks';
 
 import { Button, Checkbox, Form, Input } from 'antd'
 
-import { inject ,observer} from 'mobx-react';
-import React, { FC } from 'react'
+import { inject, observer } from 'mobx-react';
+import React, { FC, useEffect } from 'react'
+import CryptoJS from "crypto-js"
+const AccountLogin: FC = () => {
 
-const AccountLogin:FC = () => {
-
-
-    const [accountFrom]=Form.useForm()
-    accountFrom.setFieldValue("remember",false)
-    const onFinish=async (val)=>{
+    const [accountForm] = Form.useForm()
+    const [password, setpassword] = useLocalStorageState("password")
+    const [isremember, setIsremember] = useLocalStorageState("isremember")
+    const { setAccount,account, setToken } = useLocalData()
+    const {gotopage}=useCommonFc()
+    const key="xile2302"
+    const onFinish = async (val) => {
         // 提交登录
-        console.log(val);
         // 登录成功存储token   使用useloaclstorage完成 account 和token 的存储
-        if(val.remember){
-
-        }
-        let res =await loginApi(val)
-        if(res.code==200){
-            // 使用useloaclstorage
+        let res = await loginApi(val)
+        if (res.code == 200) {
+            if (val.remember) {
+                setpassword(CryptoJS.AES.encrypt(val.password,key).toString())
+                setAccount(val.account)
+                setIsremember(true)
+            }
+            else {
+                setpassword("")
+                setAccount("")
+                setIsremember(false)
+            }
+            setToken(res.token)
+            gotopage("/main/home")
         }
     }
-    const onFinishFailed=(val)=>{
-        // 验证失败的
-        // console.log(val);
-        
-    }
+    useEffect(()=>{
+        accountForm.setFieldValue("account",account)
+        accountForm.setFieldValue("password",CryptoJS.AES.decrypt(password,key).toString(CryptoJS.enc.Utf8)),
+        accountForm.setFieldValue("remember",isremember)
+    },[])
     return (
         <>
             <Form
-                name="basic"
-                labelCol={{ span: 4 ,offset:2}}
+                name="basic1"
+                labelCol={{ span: 4, offset: 2 }}
                 wrapperCol={{ span: 14 }}
                 style={{ maxWidth: 600 }}
-                initialValues={{ remember: true }}
+                initialValues={{ remember: false }}
                 onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
                 autoComplete="off"
-                form={accountFrom}
+                form={accountForm}
             >
                 <Form.Item
                     label="账号"
@@ -62,7 +73,7 @@ const AccountLogin:FC = () => {
 
                 <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                      登陆
+                        登陆
                     </Button>
                 </Form.Item>
             </Form>
@@ -70,4 +81,4 @@ const AccountLogin:FC = () => {
     )
 }
 
-export default inject("UserInfo")(observer(AccountLogin))
+export default AccountLogin
