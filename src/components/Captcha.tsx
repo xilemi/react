@@ -1,7 +1,7 @@
 import { sentCaptchaApi } from '@/api/pro'
 import { Button, Col, Form, Input, Popover, Row } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PhoneLogin from './PhoneLogin'
+import PhoneLogin from '../pages/Login/PhoneLogin'
 import { reg } from '@/utils/validate'
 import { useCountDown } from 'ahooks'
 import { Vertify } from '@alex_xu/react-slider-vertify';
@@ -48,7 +48,7 @@ const Captcha = ({ phone }) => {
                     <Form.Item
                         name="captcha"
                         noStyle
-                        rules={[{ required: true, message: '请输入验证码' }]}
+                        rules={[{ required: true, message: '请输入验证码' },{pattern:reg.code,message:'验证码为4位'}]}
                     >
                         <Input />
                     </Form.Item>

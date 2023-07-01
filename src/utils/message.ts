@@ -1,5 +1,4 @@
-import { message } from "antd"
-
+import { Modal, message } from "antd"
 export const successMessage = (msg: string = "成功") => {
     message.destroy()
     message.success({
@@ -27,4 +26,18 @@ export const liteToast = (msg: string = "提示") => {
         content: msg,
         duration: 1.5
     })
+}
+
+
+export const confirmMessage=(content="是否操作",confirm)=>{
+    Modal.confirm({
+        title: "友情提示",
+        content: content,
+        okText: '确认',
+        okType: 'danger',
+        cancelText: '取消',
+        onOk: () => {
+          confirm()
+        }
+      })
 }

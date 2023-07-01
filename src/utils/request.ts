@@ -1,23 +1,24 @@
 import axios from 'axios';
-// export const baseURL = 'http://124.93.196.45:10001';
+export const baseURL = 'http://127.0.0.1:3333';
 // export const imgBaseUrl = 'http://116.62.165.233:3333'
 // axios.defaults.baseURL = 'http://116.62.165.233:3333';
 axios.defaults.baseURL = 'http://127.0.0.1:3333';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 import { successMessage,failMessage, } from './message';
+import { history } from 'umi';
 axios.interceptors.request.use(function (config: any) {
     // 在发送请求之前做些什么 设置token
     // 有些接口不需要 token 怎么搞
     // 如果 url 是登录和注册 不配置
     // 使用useLocalStorageState 进行处理  序列化  反序列化  是不是可以在存储的时候就进行序列化
     // 为啥 取持久化的数据会有问题
-    // const token = eval(localStorage.getItem("token"))
+    const token = eval(localStorage.getItem("token"))
     // 进入  注册登录 不需要token
-    // const reg = /(login|register|maizuo)/g
-    // if (reg.test(config.url)) {
-    // } else {
-    //     config.headers.Authorization = token;
-    // }
+    const reg = /(login|register|maizuo|captcha)/g
+    if (reg.test(config.url)) {
+    } else {
+        config.headers.token = token;
+    }
     return config;
 }, function (error: any) {
     // 对请求错误做些什么
@@ -42,7 +43,8 @@ axios.interceptors.response.use(function (response) {
     }
     // 如果确定只有200是正确的  可以 直接else  其他的code都是返回个promise
     else {
-        if (code == 401) {
+        if (code == 3001) {
+            history.replace("/login")
             failMessage("请登录")
         }
         else {

@@ -1,15 +1,18 @@
-import routes from "./src/pages/routes";
+import router from "./src/pages/router";
 import { defineConfig } from "umi";
 
 export default defineConfig({
-  routes:routes,    // 全局的路由配置 
+  routes: router,    // 全局的路由配置 
   npmClient: 'npm',
   history: {  // 路由模式  browser / hash 
-    type: 'hash'
+    type: 'browser'
   },
-
+  headScripts: [
+    `https://api.map.baidu.com/api?v=3.0&ak=nkcPPAu9I0R2XksOZNbcjKAjO7DGA0HG`,
+    `https://webapi.amap.com/maps?v=1.4.9&key=96e1198e9639ab72e7ce4de06335e449`
+  ],
   devtool: process.env.NODE_ENV === 'development' ? 'eval' : false,
-  alias:{
+  alias: {
 
   },
   // nodeModulesTransform: {
@@ -24,9 +27,9 @@ export default defineConfig({
   links: [{ rel: 'icon', href: './src/assets/images/logo.png' }], // logo
   favicons: ['./src/assets/images/logo.png'],
   // base: './',  // 项目的基路径 
-  publicPath:process.env.NODE_ENV === 'production' ? './' : '/', // 公共路径 
+  publicPath: process.env.NODE_ENV === 'production' ? './' : '/', // 公共路径 
 
-  proxy:{  // 反向代理 
+  proxy: {  // 反向代理 
 
   }
 });

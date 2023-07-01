@@ -8,7 +8,7 @@ import { Button, Checkbox, DatePicker, Form, Input } from 'antd'
 
 import { inject, observer } from 'mobx-react';
 import React, { FC, useEffect } from 'react'
-import Captcha from './Captcha';
+import Captcha from '../../components/Captcha';
 
 const PhoneLogin: FC = () => {
     const {gotopage}=useCommonFc()
