@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@pansy/react-amap": "^2.15.7",
+    "echarts": "^5.4.2",
+    "react-bmapgl": "^0.2.20",
+    "xlsx": "^0.18.5"
+  }
+}

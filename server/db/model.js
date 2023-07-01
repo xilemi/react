@@ -327,6 +327,36 @@ const ProAnnoType_Schema = new Schema({
 exports.ProAnnoTypeModel = mongoose.model("pro_anno_types",ProAnnoType_Schema)
 
 
+
+
+
+// 车辆类型
+const ProCartType_Schema = new Schema({
+    label:String,
+    value:Number,
+    color:String,
+})
+
+exports.ProCartTypeModel = mongoose.model("pro_cart_types",ProCartType_Schema)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 旅游类型
 const ProClassType_Schema = new Schema({
     label:String,
     value:Number,
