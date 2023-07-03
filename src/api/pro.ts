@@ -97,6 +97,22 @@ export const listTypeCartApi=(params:any):any=>{
 }
 
 
+// 建议类型
+
+export const updateAdviseTypeApi=(params:any):any=>{
+    return request.post("/pro/advise/type/update",params)
+}
+export const addTypeAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/type/add",params)
+}
+export const delTypeAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/type/delete",params)
+}
+export const listTypeAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/type/list",params)
+}
+
+
 
 // 公告增删改查  
 export const listAnnoApi=(params:any):any=>{
@@ -110,4 +126,23 @@ export const delAnnoApi=(params:any):any=>{
 }
 export const updateAnnoApi=(params:any):any=>{
     return request.post("/pro/anno/update",params)
+}
+
+
+
+// 意见增删改查  
+export const listAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/list",params)
+}
+export const addAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/add",params)
+}
+export const delAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/delete",params)
+}
+export const updateAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/update",params)
+}
+export const detailAdviseApi=(params:any):any=>{
+    return request.post("/pro/advise/detail",params)
 }

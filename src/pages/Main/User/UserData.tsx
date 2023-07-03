@@ -15,7 +15,7 @@ const UserData = () => {
     }
     // 生成data  通过role查出label 统计label的个数 
     const data=[]
-    roles.forEach(item=>{
+    roles?.forEach(item=>{
         data.push({name:item.label,value:userList.filter(res=>{
             return res.role==item.value
         })?.length})
@@ -74,7 +74,6 @@ const UserData = () => {
     }, [])
     return (
         <div>
-
             <MyEcharts option={option} />
         </div>
     )

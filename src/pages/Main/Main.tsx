@@ -179,6 +179,7 @@ const Main: FC = ({ UserInfo }) => {
   const [num, setNum] = useState(40);
 
   useEffect(() => {
+    console.log("bianle");
     setPathname(location.pathname)
   }, [location.pathname])
   if (typeof document === 'undefined') {
@@ -304,7 +305,6 @@ const Main: FC = ({ UserInfo }) => {
 
   useLayoutEffect(() => {
     console.log(location.pathname);
-
     checkRoute(routes, location.pathname)
   }, [location.pathname, info])
 
