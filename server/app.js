@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 var apiRouter = require('./routes/api')
 var appRouter = require('./routes/app')
 var proRouter = require('./routes/pro')
+var cartRouter = require('./routes/cart')
 
 var app = express();
 app.use(cors({}))   // 解决跨域 
@@ -32,6 +33,7 @@ app.use('/users', usersRouter);
 app.use('/api',apiRouter)
 app.use('/app',appRouter)
 app.use('/pro',proRouter)
+app.use('/cart',cartRouter)
 
 
 

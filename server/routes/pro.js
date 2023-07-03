@@ -2,7 +2,7 @@
 
 var express = require('express')
 var router = express.Router()
-var { AppMsModel, MsOfferModel, ProOfferModel, ProUserModel, ProRoleModel, ProAnnoModel, ProAnnoTypeModel, ProClassTypeModel, AdviseModel, ProGaoModel, AppTravelModel,ProCartTypeModel } = require('../db/model')
+var { AppMsModel, MsOfferModel, ProOfferModel, ProUserModel, ProRoleModel, ProAnnoModel, ProAnnoTypeModel, ProClassTypeModel, AdviseModel, ProGaoModel, AppTravelModel,ProCartTypeModel,ProAdviseTypeModel } = require('../db/model')
 var { createToken, decodeToken } = require('../utils/token')
 var axios = require('axios')
 var multer = require('multer')
@@ -527,8 +527,6 @@ router.post("/anno/list", (req, res) => {
     })
 })
 
-
-
 // 删除
 router.post("/anno/delete", (req, res) => {
     var body = req.body
@@ -542,8 +540,6 @@ router.post("/anno/delete", (req, res) => {
         })
     })
 })
-
-
 
 // 修改 
 router.post("/anno/update", (req, res) => {
@@ -559,6 +555,9 @@ router.post("/anno/update", (req, res) => {
         })
     })
 })
+
+
+
 
 
 
@@ -640,6 +639,96 @@ router.post("/anno/type/update", (req, res) => {
         })
     })
 })
+
+
+// 添加建议类型
+router.post('/advise/type/add', (req, res) => {
+    var body = req.body;
+    decodeToken(req, res, async ({ phone }) => {
+        let result = await findOneDataFromTable({
+            model: ProAdviseTypeModel,
+            res,
+            query: {
+                value: body.value
+            },
+            next: 1
+        })
+        if (result) {
+            res.json({
+                code: 501,
+                msg: '当前公告分类已经存在',
+                result,
+            })
+        } else {
+            insertDataFromTable({
+                model: ProAdviseTypeModel,
+                res,
+                data: body
+            })
+        }
+    })
+})
+
+// 查询意见类型
+router.post("/advise/type/list", (req, res) => {
+    var query = {}
+    var body = req.body;
+    if (body.label) {
+        query.label = new RegExp(body.label)
+    }
+    if (body.value) {
+        query.value = body.value
+    }
+    decodeToken(req, res, ({ phone }) => {
+        findAllDataFromTable({
+            model: ProAdviseTypeModel,
+            res,
+            query: query,
+            sort:{
+                value:body.sort
+            }
+        })
+    })
+})
+
+// 删除
+router.post("/advise/type/delete", (req, res) => {
+    var body = req.body
+    decodeToken(req, res, ({ phone }) => {
+        removeDataFromTable({
+            model: ProAdviseTypeModel,
+            res,
+            query: {
+                _id: body._id   // 唯一的主键 
+            },
+        })
+    })
+})
+
+// 修改 
+router.post("/advise/type/update", (req, res) => {
+    var body = req.body
+    decodeToken(req, res, ({ phone }) => {
+        updateDataFromTable({
+            model: ProAdviseTypeModel,
+            res,
+            query: {
+                _id: body._id   // 唯一的主键 
+            },
+            data: body,
+        })
+    })
+})
+
+
+
+
+
+
+
+
+
+
 
 // 添加车辆类型
 router.post('/cart/type/add', (req, res) => {
@@ -741,6 +830,117 @@ router.post("/cart/type/update", (req, res) => {
 
 
 
+
+
+
+
+// 新增意见
+router.post('/advise/add', (req, res) => {
+    var body = req.body;
+    console.log(body);
+    body.time = new Date()
+    decodeToken(req, res, async ({ phone }) => {
+        let author = await findOneDataFromTable({
+            res,
+            model: ProUserModel,
+            query: {
+                phone
+            },
+            next: 1
+        })
+        body.author = author;
+        insertDataFromTable({
+            model: AdviseModel,
+            res,
+            data: body
+        })
+    })
+})
+
+
+// 意见列表
+router.post('/advise/list', (req, res) => {
+    var body = req.body;
+    var query = {}
+    var keyword = body.keyword
+    var type = body.type
+    var date = body.date
+    if (keyword) {
+        query.title = new RegExp(keyword)
+    }
+    if (type) {
+        query.type = type;
+    }
+    if (body.time) {
+        query.time = {
+            $gte: JSON.parse(body.time)[0],
+            $lte: JSON.parse(body.time)[1]
+        }
+    }
+    decodeToken(req, res, async ({ phone }) => {
+        findAllDataFromTable({
+            model: AdviseModel,
+            res,
+            query: query
+        })
+    })
+})
+
+// 删除
+router.post('/advise/delete', (req, res) => {
+    var body = req.body;
+    decodeToken(req, res, async ({ phone }) => {
+        removeDataFromTable({
+            model: AdviseModel,
+            res,
+            query: { _id: body._id }
+        })
+    })
+})
+
+// 详情
+router.post('/advise/detail', (req, res) => {
+    var body = req.body;
+    decodeToken(req, res, async ({ phone }) => {
+        findOneDataFromTable({
+            model: AdviseModel,
+            res,
+            query: { _id: body._id }
+        })
+    })
+})
+
+// 更新
+router.post('/advise/update', (req, res) => {
+    var body = req.body;
+    decodeToken(req, res, async ({ phone }) => {
+        updateDataFromTable({
+            model: AdviseModel,
+            res,
+            query: { _id: body._id },
+            data: body
+        })
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 添加旅游类型
 
 router.post('/anno/class/add', (req, res) => {
@@ -770,7 +970,7 @@ router.post('/anno/class/add', (req, res) => {
     })
 })
 
-// 查询公告类型
+// 查询旅游类型
 router.post("/anno/class/list", (req, res) => {
     var query = {}
     var body = req.body;
@@ -826,94 +1026,8 @@ router.post("/anno/class/update", (req, res) => {
 })
 
 
-// 新增意见
-router.post('/advise/add', (req, res) => {
-    var body = req.body;
-    body.time = new Date()
-    decodeToken(req, res, async ({ phone }) => {
-        let author = await findOneDataFromTable({
-            res,
-            model: ProUserModel,
-            query: {
-                phone
-            },
-            next: 1
-        })
-        body.author = author;
-        insertDataFromTable({
-            model: AdviseModel,
-            res,
-            data: body
-        })
-    })
-})
 
 
-// 列表
-router.post('/advise/list', (req, res) => {
-    var body = req.body;
-    var query = {}
-    var keyword = body.keyword
-    var type = body.type
-    var date = body.date
-    if (keyword) {
-        query.title = new RegExp(keyword)
-    }
-    if (type) {
-        query.type = type;
-    }
-    if (date) {
-        query.time = {
-            $gte: date[0],
-            $lte: date[1]
-        }
-    }
-    decodeToken(req, res, async ({ phone }) => {
-        findAllDataFromTable({
-            model: AdviseModel,
-            res,
-            query: query
-        })
-    })
-})
-
-
-// 删除
-router.post('/advise/delete', (req, res) => {
-    var body = req.body;
-    decodeToken(req, res, async ({ phone }) => {
-        removeDataFromTable({
-            model: AdviseModel,
-            res,
-            query: { _id: body._id }
-        })
-    })
-})
-
-// 详情
-router.post('/advise/detail', (req, res) => {
-    var body = req.body;
-    decodeToken(req, res, async ({ phone }) => {
-        findOneDataFromTable({
-            model: AdviseModel,
-            res,
-            query: { _id: body._id }
-        })
-    })
-})
-
-// 更新
-router.post('/advise/update', (req, res) => {
-    var body = req.body;
-    decodeToken(req, res, async ({ phone }) => {
-        updateDataFromTable({
-            model: AdviseModel,
-            res,
-            query: { _id: body._id },
-            data: body
-        })
-    })
-})
 
 
 // 广告新增
