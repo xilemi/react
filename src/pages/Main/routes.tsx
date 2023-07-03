@@ -166,7 +166,50 @@ const routes = [
 
         ]
     },
+    {
+        path: '/main/attendance',
+        component: '@/layouts/second',
+        name:'考勤管理',
+        icon: <MessageOutlined />,
+        role: 1,
+        routes: [
 
+            {
+                path: '/main/attendance/clockin',
+                component: "@/pages/Main/Attendance/ClockIn",
+                name: '考勤打卡',
+                role: 1,
+            },
+            {
+                path: '/main/attendance/data',
+                component: "@/pages/Main/Attendance/Data",
+                name: '考勤分析',
+                role: 1,
+            },
+
+        ]
+    },
+    {
+        path: '/main/banner',
+        component: '@/layouts/second',
+        name: '轮播设置',
+        icon: <MessageOutlined />,
+        role: 3,
+        routes: [
+            {
+                path: '/main/banner/banneradd',
+                component: "@/pages/Main/Banner/BannerAdd",
+                name: '轮播添加',
+                role: 5,
+            },
+            {
+                path: '/main/banner/bannershow',
+                component: "@/pages/Main/Banner/BannerShow",
+                name: '轮播展示',
+                role: 1,
+            },
+        ]
+    },
     {
         path: '/main/anno',
         component: '@/layouts/second',

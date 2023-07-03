@@ -1,11 +1,12 @@
-import { createUserApi, getRoleListApi } from '@/api/pro';
+import { createUserApi, getRoleListApi, uplodafileApi } from '@/api/pro';
+import ComUpload from '@/components/ComUpload';
 import UserInfo from '@/mobx/reducer/UserInfo';
 import type { ProFormColumnsType } from '@ant-design/pro-components';
 import { BetaSchemaForm } from '@ant-design/pro-components';
-import { Form, Input } from 'antd';
+import { Avatar, Form, Input } from 'antd';
 import { inject, observer } from 'mobx-react';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import { EditOutlined } from "@ant-design/icons"
 
 
 
@@ -20,7 +21,11 @@ type DataItem = {
 
 const UserAdd = () => {
   const { roles, updataRoles, info } = UserInfo
-  const [form]=Form.useForm()
+  const [form] = Form.useForm()
+  const test = useRef()
+  const handle = (props) => {
+    props.onChange()
+  }
   const columns: ProFormColumnsType<DataItem>[] = [
     {
       title: '用户名',
@@ -68,9 +73,9 @@ const UserAdd = () => {
       width: 'm',
     },
     {
-      title:'权限等级',
-      dataIndex:'role',
-      width:'m',
+      title: '权限等级',
+      dataIndex: 'role',
+      width: 'm',
       fieldProps: () => {
         return {
           disabled: true,
@@ -83,15 +88,15 @@ const UserAdd = () => {
       valueType: 'select',
       width: 'm',
       tooltip: '当title为disabled时状态无法选择',
-      request:async ()=>{
-        let res =await getRoleListApi()
-        if(res.code==200){
-          res.result.forEach(item=>{
-            if(info.role>item.value){
-              item.disabled=<false></false>
+      request: async () => {
+        let res = await getRoleListApi()
+        if (res.code == 200) {
+          res.result.forEach(item => {
+            if (info.role > item.value) {
+              item.disabled = false
             }
-            else{
-              item.disabled=true
+            else {
+              item.disabled = true
             }
           })
           return res.result
@@ -125,8 +130,8 @@ const UserAdd = () => {
         form={form}
         onFinish={async (values) => {
           console.log(values);
-          let res =await createUserApi(values)
-          if(res.code==200){
+          let res = await createUserApi(values)
+          if (res.code == 200) {
             form.resetFields()
           }
         }}

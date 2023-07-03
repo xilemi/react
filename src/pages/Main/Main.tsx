@@ -276,7 +276,6 @@ const Main: FC = ({ UserInfo }) => {
       }
       else {
         if (item.path == pathname) {
-
           if (item.role > info?.role) {
             failMessage("没有访问权限")
             info && history.replace("/main/home")

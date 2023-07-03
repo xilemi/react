@@ -15,7 +15,7 @@ const Data = () => {
   const [todayList, setTodayList] = useState([])
   const [yesDayList, setYesDayList] = useState([])
   const [todayMoneyList, setTodayMoneyList] = useState([])
-  const [yesDayMoneyList, setYesDayMoneyList] = useState([])
+  const [yesMoenyList, setYesDayMoneyList] = useState([])
   const [cartTypeList, setCartTypeList] = useState<any>([])
   const cartTypeNum: any = {
     title: {
@@ -47,19 +47,20 @@ const Data = () => {
   };
   const cartTypeMoney: any = {
     title: {
-      text: '品牌销售额统计表'
+      text: '品牌销售额走势图'
     },
     tooltip: {
       trigger: 'axis'
-    },
-    legend: {
-      data: ["前一日", "当日"]
     },
     grid: {
       left: '3%',
       right: '4%',
       bottom: '3%',
       containLabel: true
+    },
+    legend: {
+      data: ['前一日', '当日',],
+      left: '30%'
     },
     xAxis: {
       type: 'category',
@@ -74,7 +75,7 @@ const Data = () => {
         name: '前一日',
         type: 'line',
         stack: 'Total',
-        data: yesDayMoneyList
+        data: yesMoenyList
       },
       {
         name: '当日',
@@ -93,7 +94,7 @@ const Data = () => {
     }
   }
   // 通过dayjs().isToday() 判断当天
-  const getdayList = (day: string, item?: string) => {
+  const getdayList = (day, item) => {
     const list = []
     const tlist = orderList.filter(order => {
       if (day == "isToday") {
@@ -103,19 +104,20 @@ const Data = () => {
         return dayjs(order?.time).isYesterday()
       }
     })
-    console.log(tlist, 11);
 
     cartTypeList.forEach(cart => {
       const lg = tlist.filter(items => { return items?.type == cart.value })
       if (lg.length >= 1) {
         if (lg.length == 1) {
           const oneItem = lg[0]
-          list.push(oneItem.count)
+          list.push(oneItem[item])
         }
         else {
-          list.push(lg.reduce((prev, current) => {
-            return prev?.count + current?.count
-          }))
+          let count = 0
+          for (const i of lg) {
+            count += i[item]
+          }
+          list.push(count)
         }
       }
       else {
@@ -136,13 +138,12 @@ const Data = () => {
     getCartType()
   }, [])
   useEffect(() => {
-    setTodayList(getdayList("isToday"))
+    setTodayList(getdayList("isToday", "count"))
     console.log(getdayList("isToday", "count"), 111);
-    // setYesDayList(getdayList("isYesterday","count"))
-    // console.log(getdayList("isYesterday","count"),222);
+    setYesDayList(getdayList("isYesterday", 'count'))
 
-    // setTodayMoneyList(getdayList("isToday","total"))
-    // setYesDayMoneyList(getdayList("isYesterday","total"))
+    setTodayMoneyList(getdayList("isToday","total"))
+    setYesDayMoneyList(getdayList("isYesterday","total"))
   }, [orderList, cartTypeList])
 
 
