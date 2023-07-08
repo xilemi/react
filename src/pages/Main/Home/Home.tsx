@@ -1,5 +1,5 @@
 import { ProCard, StatisticCard } from '@ant-design/pro-components';
-import { Statistic } from 'antd';
+import { Col, Row, Statistic } from 'antd';
 import RcResizeObserver from 'rc-resize-observer';
 import { useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
@@ -12,10 +12,16 @@ const imgStyle = {
   height: 42,
 };
 
-const Home =() => {
+const Home = () => {
   const [responsive, setResponsive] = useState(false);
   return (
     <div>
+      <Row>
+        <Col span={24}>
+          <iframe src="https://maintenancemonitor.hzncc.cn/#/" style={{width:"100%",height:"800px",marginBottom:"20px"}} >
+          </iframe>
+        </Col>
+      </Row>
       <RcResizeObserver
         key="resize-observer"
         onResize={(offset) => {
@@ -103,68 +109,68 @@ const Home =() => {
           }
         />
       </div>
-      <div style={{marginTop:40}}>
-      <RcResizeObserver
-      key="resize-observer"
-      onResize={(offset) => {
-        setResponsive(offset.width < 596);
-      }}
-    >
-      <StatisticCard.Group direction={responsive ? 'column' : 'row'}>
-        <StatisticCard
-          statistic={{
-            title: '支付金额',
-            value: "2176亿",
-            icon: (
-              <img
-                style={imgStyle}
-                src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*dr_0RKvVzVwAAAAAAAAAAABkARQnAQ"
-                alt="icon"
-              />
-            ),
+      <div style={{ marginTop: 40 }}>
+        <RcResizeObserver
+          key="resize-observer"
+          onResize={(offset) => {
+            setResponsive(offset.width < 596);
           }}
-        />
-        <StatisticCard
-          statistic={{
-            title: '访客数',
-            value: "475万",
-            icon: (
-              <img
-                style={imgStyle}
-                src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*-jVKQJgA1UgAAAAAAAAAAABkARQnAQ"
-                alt="icon"
-              />
-            ),
-          }}
-        />
-        <StatisticCard
-          statistic={{
-            title: '成功订单数',
-            value: "87万",
-            icon: (
-              <img
-                style={imgStyle}
-                src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*FPlYQoTNlBEAAAAAAAAAAABkARQnAQ"
-                alt="icon"
-              />
-            ),
-          }}
-        />
-        <StatisticCard
-          statistic={{
-            title: '浏览量',
-            value: "1754万",
-            icon: (
-              <img
-                style={imgStyle}
-                src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*pUkAQpefcx8AAAAAAAAAAABkARQnAQ"
-                alt="icon"
-              />
-            ),
-          }}
-        />
-      </StatisticCard.Group>
-    </RcResizeObserver>
+        >
+          <StatisticCard.Group direction={responsive ? 'column' : 'row'}>
+            <StatisticCard
+              statistic={{
+                title: '支付金额',
+                value: "2176亿",
+                icon: (
+                  <img
+                    style={imgStyle}
+                    src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*dr_0RKvVzVwAAAAAAAAAAABkARQnAQ"
+                    alt="icon"
+                  />
+                ),
+              }}
+            />
+            <StatisticCard
+              statistic={{
+                title: '访客数',
+                value: "475万",
+                icon: (
+                  <img
+                    style={imgStyle}
+                    src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*-jVKQJgA1UgAAAAAAAAAAABkARQnAQ"
+                    alt="icon"
+                  />
+                ),
+              }}
+            />
+            <StatisticCard
+              statistic={{
+                title: '成功订单数',
+                value: "87万",
+                icon: (
+                  <img
+                    style={imgStyle}
+                    src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*FPlYQoTNlBEAAAAAAAAAAABkARQnAQ"
+                    alt="icon"
+                  />
+                ),
+              }}
+            />
+            <StatisticCard
+              statistic={{
+                title: '浏览量',
+                value: "1754万",
+                icon: (
+                  <img
+                    style={imgStyle}
+                    src="https://gw.alipayobjects.com/mdn/rms_7bc6d8/afts/img/A*pUkAQpefcx8AAAAAAAAAAABkARQnAQ"
+                    alt="icon"
+                  />
+                ),
+              }}
+            />
+          </StatisticCard.Group>
+        </RcResizeObserver>
       </div>
     </div>
 

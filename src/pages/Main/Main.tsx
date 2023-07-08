@@ -30,7 +30,7 @@ import {
 } from 'antd';
 import React, { FC, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import defaultProps from './_defaultProps';
-import { Outlet, history } from 'umi';
+import { Outlet, history, useLocation } from 'umi';
 import { inject, observer } from 'mobx-react';
 import UserInfo from '@/mobx/reducer/UserInfo';
 import { baseURL } from '@/utils/request';
@@ -177,7 +177,7 @@ const Main: FC = ({ UserInfo }) => {
 
   const [pathname, setPathname] = useState('/home');
   const [num, setNum] = useState(40);
-
+  const location=useLocation()
   useEffect(() => {
     console.log("bianle");
     setPathname(location.pathname)

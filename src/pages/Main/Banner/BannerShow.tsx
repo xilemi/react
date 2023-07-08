@@ -1,4 +1,5 @@
 import { listBannerApi } from '@/api/cart';
+import { baseURL } from '@/utils/request';
 import { Carousel } from 'antd'
 import React, { useEffect, useState } from 'react'
 const contentStyle: React.CSSProperties = {
@@ -33,7 +34,7 @@ const BannerShow = () => {
                     return <div>
                         <h3 style={contentStyle}>
 
-                            <img src={item.path} style={{ width: "100%" }} />
+                            <img src={item.path.replace("public",baseURL)} style={{ width: "100%" }} />
 
                         </h3>
                     </div>

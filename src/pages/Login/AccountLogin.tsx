@@ -12,16 +12,16 @@ const AccountLogin: FC = () => {
     const [accountForm] = Form.useForm()
     const [password, setpassword] = useLocalStorageState("password")
     const [isremember, setIsremember] = useLocalStorageState("isremember")
-    const { setAccount,account, setToken } = useLocalData()
-    const {gotopage}=useCommonFc()
-    const key="xile2302"
-    const onFinish = async (val) => {
+    const { setAccount, account, setToken } = useLocalData()
+    const { gotopage } = useCommonFc()
+    const key = "xile2302"
+    const onFinish = async (val: any) => {
         // 提交登录
         // 登录成功存储token   使用useloaclstorage完成 account 和token 的存储
         let res = await loginApi(val)
         if (res.code == 200) {
             if (val.remember) {
-                setpassword(CryptoJS.AES.encrypt(val.password,key).toString())
+                setpassword(CryptoJS.AES.encrypt(val.password, key).toString())
                 setAccount(val.account)
                 setIsremember(true)
             }
@@ -34,11 +34,13 @@ const AccountLogin: FC = () => {
             gotopage("/main/home")
         }
     }
-    useEffect(()=>{
-        accountForm.setFieldValue("account",account)
-        accountForm.setFieldValue("password",CryptoJS.AES.decrypt(password,key).toString(CryptoJS.enc.Utf8)),
-        accountForm.setFieldValue("remember",isremember)
-    },[])
+    useEffect(() => {
+        accountForm.setFieldValue("account", account)
+        if (password) {
+            accountForm.setFieldValue("password", CryptoJS.AES.decrypt(password, key).toString(CryptoJS.enc.Utf8))
+        }
+        accountForm.setFieldValue("remember", isremember)
+    }, [])
     return (
         <>
             <Form

@@ -5,7 +5,7 @@ export default defineConfig({
   routes: router,    // 全局的路由配置 
   npmClient: 'npm',
   history: {  // 路由模式  browser / hash 
-    type: 'browser'
+    type: 'hash'
   },
   headScripts: [
     `https://api.map.baidu.com/api?v=3.0&ak=nkcPPAu9I0R2XksOZNbcjKAjO7DGA0HG`,
@@ -26,9 +26,8 @@ export default defineConfig({
   title: '恒鑫汽车销售管理系统后台',
   links: [{ rel: 'icon', href: './src/assets/images/logo.png' }], // logo
   favicons: ['./src/assets/images/logo.png'],
-  // base: './',  // 项目的基路径 
+  base: '/',  // 项目的基路径 
   publicPath: process.env.NODE_ENV === 'production' ? './' : '/', // 公共路径 
-
   proxy: {  // 反向代理 
 
   }

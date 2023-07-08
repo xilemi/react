@@ -1,8 +1,10 @@
 import axios from 'axios';
-export const baseURL = 'http://127.0.0.1:3333';
+// export const baseURL = 'http://127.0.0.1:3333';
+export const baseURL = 'http://admin.xilemi.me:3333';
+
 // export const imgBaseUrl = 'http://116.62.165.233:3333'
 // axios.defaults.baseURL = 'http://116.62.165.233:3333';
-axios.defaults.baseURL = 'http://127.0.0.1:3333';
+axios.defaults.baseURL = 'http://admin.xilemi.me:3333';
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 import { successMessage,failMessage, } from './message';
 import { history } from 'umi';

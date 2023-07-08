@@ -77,9 +77,9 @@ const CartAdd = () => {
     buyRef.current?.form.setFieldsValue(record);
     buyRef.current?.setId(record._id)
   }
-  const buyConfirm= async(val)=>{
-    let res=await addOrderApi({...val,_id:buyRef.current.id})
-    if(res.code==200){
+  const buyConfirm = async (val) => {
+    let res = await addOrderApi({ ...val, _id: buyRef.current.id })
+    if (res.code == 200) {
       successMessage("添加成功")
       actionRef.current?.reload()
     }
@@ -131,7 +131,7 @@ const CartAdd = () => {
       disable: true,
       title: '车辆价格',
       dataIndex: 'price',
-      search: true,
+      search: false,
       sorter: true
     },
     {
@@ -173,11 +173,11 @@ const CartAdd = () => {
     {
       title: '操作',
       valueType: 'option',
-      key: 'option',
+      key: 'option1',
       render: (text, record, _, action) => [
         <Button
           disabled={!(info.role > 6)}
-          key={record._id}
+          key={record?.time}
           onClick={() => {
             confirmMessage("是否删除", async () => {
               let res = await delCartApi({ _id: record._id })
@@ -199,11 +199,11 @@ const CartAdd = () => {
     {
       title: '操作',
       valueType: 'option',
-      key: 'option',
+      key: 'option2',
       render: (text, record, _, action) => [
         <Button
           disabled={!(info.role > 6)}
-          key={record._id}
+          key={record?._id}
           onClick={() => buyClick(record)}
         >
           购买
@@ -223,7 +223,7 @@ const CartAdd = () => {
           name="type"
           label="车辆类别"
           rules={[{ pattern: /\d/, message: '角色等级只能是数字' }, { required: true, message: "请填写" }]}
-          options={typeCart}
+          options={typeCart as any}
         />
         <ProFormText
           name="type"
@@ -258,7 +258,7 @@ const CartAdd = () => {
           name="type"
           label="车辆类别"
           rules={[{ pattern: /\d/, message: '角色等级只能是数字' }, { required: true, message: "请填写" }]}
-          options={typeCart}
+          options={typeCart as any}
           disabled={true}
         />
         <ProFormText
@@ -266,7 +266,7 @@ const CartAdd = () => {
           label="车辆等级"
           rules={[{ required: true, message: "请填写" }]}
           disabled={true}
-        /> 
+        />
         <ProFormText
           name="price"
           label="车辆单价"

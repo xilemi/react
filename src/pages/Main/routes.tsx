@@ -181,6 +181,13 @@ const routes = [
                 role: 1,
             },
             {
+                path: '/main/attendance/list',
+                component: "@/pages/Main/Attendance/List",
+                name: '考勤列表',
+                role: 1,
+            },
+
+            {
                 path: '/main/attendance/data',
                 component: "@/pages/Main/Attendance/Data",
                 name: '考勤分析',

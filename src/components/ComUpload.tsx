@@ -33,7 +33,7 @@ const ComUpload: React.FC<comuploadProps> = (props: comuploadProps) => {
         console.log(data);
         let res = await uplodafileApi(data)
         if (res.code == 200) {
-            onChange(res.path.replace("public", baseURL))
+            onChange(res.path)
         }
     }
 
